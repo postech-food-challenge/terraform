@@ -1,8 +1,6 @@
 resource "aws_iam_role" "nodes_general" {
-  # The name of the role
   name = "eks-node-group-general"
 
-  # The policy that grants an entity permission to assume the role.
   assume_role_policy = jsonencode({
     "Version" : "2012-10-17",
     "Statement" : [
