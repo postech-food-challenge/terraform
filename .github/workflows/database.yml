@@ -5,7 +5,8 @@ on:
     branches: [ "main" ]
     paths: 'database/**'
   pull_request:
-
+    paths: 'database/**'
+    
 permissions:
   contents: read
 

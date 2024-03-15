@@ -5,6 +5,7 @@ on:
     branches: [ "main" ]
     paths: 'eks/**'
   pull_request:
+    paths: 'eks/**'
 
 permissions:
   contents: read

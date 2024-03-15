@@ -5,6 +5,7 @@ on:
     branches: [ "main" ]
     paths: 'lambda/**'
   pull_request:
+    paths: 'lambda/**'
 
 permissions:
   contents: read

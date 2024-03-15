@@ -5,6 +5,7 @@ on:
     branches: [ "main" ]
     paths: 'gateway/**'
   pull_request:
+    paths: 'gateway/**'
 
 permissions:
   contents: read

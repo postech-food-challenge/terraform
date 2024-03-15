@@ -5,6 +5,7 @@ on:
     branches: [ "main" ]
     paths: 'vpc/**'
   pull_request:
+    paths: 'vpc/**'
 
 permissions:
   contents: read
