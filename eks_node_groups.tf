@@ -37,15 +37,16 @@ resource "aws_eks_node_group" "nodes_general" {
 
   node_role_arn = aws_iam_role.nodes_general.arn
 
+
   subnet_ids = [
     aws_subnet.private_1.id,
     aws_subnet.private_2.id
   ]
 
   scaling_config {
-    desired_size = 1
+    desired_size = 2
     max_size     = 3
-    min_size     = 1
+    min_size     = 2
   }
 
   ami_type      = "AL2_x86_64"
@@ -55,7 +56,7 @@ resource "aws_eks_node_group" "nodes_general" {
 
   force_update_version = false
 
-  instance_types = ["t3.small"]
+  instance_types = ["t3.micro"]
 
   labels = {
     role = "nodes-general"
