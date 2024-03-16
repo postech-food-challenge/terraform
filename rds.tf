@@ -13,19 +13,20 @@ resource "aws_db_subnet_group" "db_subnet_group" {
 }
 
 resource "aws_db_instance" "rds" {
-  db_name              = "foodchallenge"
-  allocated_storage    = 10
-  storage_type         = "gp2"
-  engine               = "postgres"
-  engine_version       = "15"
-  instance_class       = "db.t3.micro"
-  identifier           = "rds"
-  username             = "foodchallenge"
-  password             = "root1234"
-  skip_final_snapshot  = true
-  db_subnet_group_name = aws_db_subnet_group.db_subnet_group.name
-  publicly_accessible  = true
-  multi_az             = true
+  db_name                = "foodchallenge"
+  allocated_storage      = 10
+  storage_type           = "gp2"
+  engine                 = "postgres"
+  engine_version         = "15"
+  instance_class         = "db.t3.micro"
+  identifier             = "rds"
+  username               = "foodchallenge"
+  password               = "root1234"
+  skip_final_snapshot    = true
+  db_subnet_group_name   = aws_db_subnet_group.db_subnet_group.name
+  vpc_security_group_ids = [aws_security_group.sg.id]
+  publicly_accessible    = true
+  multi_az               = true
   tags = {
     Name = "rds"
   }
