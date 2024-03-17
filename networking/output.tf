@@ -27,3 +27,15 @@ output "private-subnet-id-2" {
   description = "ID da subnet privada 2"
   sensitive   = false
 }
+
+output "internet-gateway" {
+  value = aws_internet_gateway.main
+  description = "Internet gateway"
+  sensitive = false
+}
+
+output "internet-gateway-id" {
+  value = aws_internet_gateway.main.id
+  description = "Internet gateway id"
+  sensitive = false
+}
