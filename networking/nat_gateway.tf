@@ -1,6 +1,6 @@
 resource "aws_nat_gateway" "gw1" {
-  allocation_id = eks.nat-1
-  subnet_id     = public-subnet-id-1
+  allocation_id = aws_eip.nat1.id
+  subnet_id     = aws_subnet.public_1.id
 
   tags = {
     Name = "NAT 1"
@@ -8,8 +8,8 @@ resource "aws_nat_gateway" "gw1" {
 }
 
 resource "aws_nat_gateway" "gw2" {
-  allocation_id = eks.nat-2
-  subnet_id     = public-subnet-id-2
+  allocation_id = aws_eip.nat1.id
+  subnet_id     = aws_subnet.public_2.id
 
   tags = {
     Name = "NAT 2"
