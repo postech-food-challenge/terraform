@@ -1,10 +1,10 @@
 resource "aws_db_subnet_group" "db_subnet_group" {
   name = "db-subnet-group"
   subnet_ids = [
-    networking.private-subnet-id-1,
-    networking.private-subnet-id-2,
-    networking.public-subnet-id-1,
-    networking.public-subnet-id-2
+    module.networking.private-subnet-id-1,
+    module.networking.private-subnet-id-2,
+    module.networking.public-subnet-id-1,
+    module.networking.public-subnet-id-2
   ]
 
   tags = {
@@ -24,7 +24,7 @@ resource "aws_db_instance" "rds" {
   password               = "root1234"
   skip_final_snapshot    = true
   db_subnet_group_name   = aws_db_subnet_group.db_subnet_group.name
-  vpc_security_group_ids = [aws_security_group.sg.id]
+  vpc_security_group_ids = [module.networking.aws-aws-security-group-id]
   publicly_accessible    = true
   multi_az               = true
   tags = {
