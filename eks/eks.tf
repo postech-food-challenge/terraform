@@ -35,10 +35,10 @@ resource "aws_eks_cluster" "eks" {
     endpoint_public_access  = true
 
     subnet_ids = [
-      aws_subnet.public_1.id,
-      aws_subnet.public_2.id,
-      aws_subnet.private_1.id,
-      aws_subnet.private_2.id,
+      module.networking.public-subnet-id-1,
+      module.networking.public-subnet-id-2,
+      module.networking.private-subnet-id-1,
+      module.networking.private-subnet-id-2,
     ]
   }
 
