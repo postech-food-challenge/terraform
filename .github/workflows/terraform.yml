@@ -9,8 +9,8 @@ permissions:
   contents: read
 
 jobs:
-  terraform:
-    name: 'Terraform'
+  terraform_plan:
+    name: 'Terraform Plan'
     runs-on: ubuntu-latest
     environment: production
 
@@ -38,6 +38,72 @@ jobs:
     - name: Terraform Plan
       run: terraform plan --input=false
 
-    - name: Terraform Apply
-      if: github.ref == 'refs/heads/"main"' && github.event_name == 'push'
-      run: terraform apply --auto-approve --input=false
+  terraform_apply:
+    name: 'Terraform Apply'
+    runs-on: ubuntu-latest
+    environment: production
+
+    needs: terraform_plan
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v3
+  
+      - name: Configure AWS credentials
+        uses: aws-actions/configure-aws-credentials@v4
+        with:
+          aws-region: us-east-1
+          aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+
+      - name: Terraform Apply
+        if: github.event_name == 'workflow_dispatch'
+        run: terraform apply --auto-approve --input=false
+
+  terraform_destroy:
+    name: 'Terraform Destroy'
+    runs-on: ubuntu-latest
+    environment: production
+
+    needs: terraform_plan
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v3
+  
+      - name: Configure AWS credentials
+        uses: aws-actions/configure-aws-credentials@v4
+        with:
+          aws-region: us-east-1
+          aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+
+      - name: Terraform Destroy
+        if: github.event_name == 'workflow_dispatch'
+        run: terraform destroy --auto-approve --input=false
+
+  manual_trigger_apply:
+    name: 'Manual Trigger - Apply'
+    runs-on: ubuntu-latest
+    needs: terraform_plan
+
+    if: github.event_name == 'workflow_dispatch'
+
+    steps:
+      - name: Manual trigger - Apply
+        uses: ad-m/github-push-action@master
+        with:
+          branch: main
+
+  manual_trigger_destroy:
+    name: 'Manual Trigger - Destroy'
+    runs-on: ubuntu-latest
+    needs: terraform_plan
+
+    if: github.event_name == 'workflow_dispatch'
+
+    steps:
+      - name: Manual trigger - Destroy
+        uses: ad-m/github-push-action@master
+        with:
+          branch: main
