@@ -11,8 +11,6 @@ resource "aws_security_group" "sg" {
 resource "aws_vpc_security_group_ingress_rule" "sg_ingress" {
   security_group_id = aws_security_group.sg.id
   cidr_ipv4         = aws_vpc.main.cidr_block
-  from_port         = 0
-  to_port           = 0
   ip_protocol       = "-1"
 }
 
