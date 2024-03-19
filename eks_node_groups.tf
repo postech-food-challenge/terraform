@@ -50,7 +50,7 @@ resource "aws_eks_node_group" "nodes_general" {
   }
 
   ami_type      = "AL2_x86_64"
-  capacity_type = "SPOT"
+  capacity_type = "ON_DEMAND"
 
   disk_size = 10
 
